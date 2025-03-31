@@ -1,7 +1,7 @@
 
 
 export default class Alumno {
-    constructor(DNI, username = "", edad = "") { // edad tiene un valor default.
+    constructor(DNI, username, edad) { 
     this.username = username;
     this.DNI = DNI;
     this.edad = edad;
@@ -9,6 +9,6 @@ export default class Alumno {
     }
 
     toString(){
-    return `nombre:${this.nombre}, DNI:${this.casado}`;
+    return `nombre:${this.username}, DNI:${this.DNI}`;
     }
     }

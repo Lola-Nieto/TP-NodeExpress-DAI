@@ -10,8 +10,6 @@ const multiplicar = (a, b) => {
 return (a*b)
 };
 function dividir(x, y) {
-    x = parseFloat(x);
-    y = parseFloat(y);
     let ret;
     if(y != 0){
         ret = x/y;
