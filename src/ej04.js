@@ -5,8 +5,8 @@ import fs from 'fs';
 //Eso está definido en el package.json donde dice "type": "module" 
 
 
-const ARCHIVO_ENTRADA = "././archivo-salida.txt";
-const ARCHIVO_SALIDA = "././archivo-salida.txt";
+const ARCHIVO_ENTRADA = "./archivo-entrada.txt";
+const ARCHIVO_SALIDA = "./archivo-salida.txt";
 console.clear();
 copiar(ARCHIVO_ENTRADA, ARCHIVO_SALIDA);
 
@@ -16,19 +16,19 @@ copiar(ARCHIVO_ENTRADA, ARCHIVO_SALIDA);
 
 }
 
-async function readThisFile(origen){
+function readThisFile(origen){
     let data;
     try {
-        data = await fs.readFile(origen);
+        data = fs.readFileSync(origen);
         console.log(data.toString());
       } catch (error) {
         console.error(`Got an error trying to read the file: ${error.message}`);
      } 
      return data;
 }
-async function writeToFile(fileName, data) {
+function writeToFile(fileName, data) {
     try {
-      await fs.writeFile(fileName, data);
+      fs.writeFileSync(fileName, data);
       console.log(`Wrote data to ${fileName}`);
     } catch (error) {
       console.error(`Got an error trying to write the file: ${error.message}`);
