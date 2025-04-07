@@ -2,40 +2,62 @@ import axios from "axios";
 const APIKEY  = "b8b3928a";        // Poné tu APIKEY, esta no funciona.
 
 
-const OMDBSearchByPage = async (searchText, page = 1) => {
+const OMDBSearchByPage = async (movieTitle, page = 1) => {
+    let returnObject = {
 
-  let returnObject = {
-
-      respuesta     : false,
-
-      cantidadTotal : 0,
-
-      datos         : []
-
-    };
+        respuesta     : false,
+  
+        cantidadTotal : 0,
+  
+        datos         : []
+  
+      };
 
 
-  // No seas vago, acá hay que hacer el cuerpo de la función!!!
+    try{
+        let resultadosDelTest = await Test(`http://www.omdbapi.com/?apikey=${APIKEY}&s=${movieTitle}&page=${page}`);
+
+        if(resultadosDelTest != undefined){
+            returnObject.datos = resultadosDelTest.data.Search;
+            returnObject.respuesta = resultadosDelTest.data.Response;
+            returnObject.cantidadTotal = resultadosDelTest.data.totalResults;
+            
+        }
+
+    }catch (error){
+    console.log(error);
+    }
 
   return returnObject;
 
 };
 
 
-const OMDBSearchComplete = async (searchText) => {
+const OMDBSearchComplete = async (movieTitle) => {
+    let returnObject = {
 
-  let returnObject = {
+        respuesta     : false,
+  
+        cantidadTotal : 0,
+  
+        datos         : []
+  
+      };
 
-      respuesta     : false,
+    try{
+         let resultadosDelTest = await Test(`http://www.omdbapi.com/?apikey=`+APIKEY+`&s=`+movieTitle);
+         if(resultadosDelTest != undefined){
+            
+         returnObject.respuesta = resultadosDelTest.data.Response;
+         returnObject.cantidadTotal = resultadosDelTest.data.totalResults;
+         returnObject.datos = resultadosDelTest.data.Search;
+         }
 
-      cantidadTotal : 0,
-
-      datos         : []
-
-    };
+    }catch(error){
+    console.log(error);
 
 
-  // No seas vago, acá hay que hacer el cuerpo de la función!!!
+}
 
   return returnObject;
 
@@ -44,19 +66,30 @@ const OMDBSearchComplete = async (searchText) => {
 
 const OMDBGetByImdbID = async (imdbID) => {
 
-    let rta = await Test(`http://www.omdbapi.com/?i=imdbID&apikey=APIKEY `);
-
-
     let returnObject = {
 
-      respuesta     : false,
+        respuesta     : false,
+  
+        cantidadTotal : 0,
+  
+        datos         : {}
+  
+      };
+          try{
+         let  resultadosDelTest = await Test(`http://www.omdbapi.com/?i=`+imdbID+`&apikey=`+APIKEY);
+         console.log(resultadosDelTest);
 
-      cantidadTotal : 0,
+         if(resultadosDelTest != undefined){
+            returnObject.respuesta = resultadosDelTest.Response;
+            returnObject.datos = resultadosDelTest.Search;
+            returnObject.cantidadTotal = resultadosDelTest.data.totalResults;
 
-      datos         : {}
+         }
 
+    }catch(error){
+        console.log(error);
+        
     }
-    
 
   return returnObject;
 
@@ -64,9 +97,7 @@ const OMDBGetByImdbID = async (imdbID) => {
 
 const Test = async (searchText) => {
     
-    const requestString = ``;
-  
-    const apiResponse = await axios.get(requestString);
+    const apiResponse = await axios.get(searchText);
   
     return apiResponse.data;
   
