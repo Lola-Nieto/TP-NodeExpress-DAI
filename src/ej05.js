@@ -1,7 +1,7 @@
 let miUrl = null;
 let miObjeto = null;
-miUrl = 'http://www.ort.edu.ar:8080/alumnos/index.htm?curso=2022&mes=mayo';
-//miUrl = 'Cualquier cosa';
+//miUrl = 'http://www.ort.edu.ar:8080/alumnos/index.htm?curso=2022&mes=mayo';
+miUrl = 'Cualquier cosa';
 miObjeto = parsearUrl (miUrl);
 console.log(miObjeto);
 
@@ -10,7 +10,7 @@ function parsearUrl(laURL){
     try{
         urlParseada = new URL(laURL);
     } catch (exception) {
-        //console.log(exception);
+        console.log(exception);
     }
     
     let returnValue = {
