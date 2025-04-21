@@ -1,5 +1,5 @@
 import axios from "axios";
-const APIKEY  = "b8b3928a";        // Poné tu APIKEY, esta no funciona.
+const APIKEY  = "b8b3928a";   
 
 
 const OMDBSearchByPage = async (movieTitle, page = 1) => {
@@ -18,9 +18,9 @@ const OMDBSearchByPage = async (movieTitle, page = 1) => {
         let resultadosDelTest = await Test(`http://www.omdbapi.com/?apikey=${APIKEY}&s=${movieTitle}&page=${page}`);
 
         if(resultadosDelTest != undefined){
-            returnObject.datos = resultadosDelTest.data.Search;
-            returnObject.respuesta = resultadosDelTest.data.Response;
-            returnObject.cantidadTotal = resultadosDelTest.data.totalResults;
+            returnObject.datos = resultadosDelTest.Search; //Muestra los 1eros 10, como si no estuviera lo de page --> Pq????
+            returnObject.respuesta = resultadosDelTest.Response;
+            returnObject.cantidadTotal = resultadosDelTest.totalResults;
             
         }
 
@@ -45,12 +45,12 @@ const OMDBSearchComplete = async (movieTitle) => {
       };
 
     try{
-         let resultadosDelTest = await Test(`http://www.omdbapi.com/?apikey=`+APIKEY+`&s=`+movieTitle);
+         let resultadosDelTest = await Test('http://www.omdbapi.com/?apikey='+APIKEY+'&s='+movieTitle);
          if(resultadosDelTest != undefined){
             
-         returnObject.respuesta = resultadosDelTest.data.Response;
-         returnObject.cantidadTotal = resultadosDelTest.data.totalResults;
-         returnObject.datos = resultadosDelTest.data.Search;
+         returnObject.respuesta = resultadosDelTest.Response;
+         returnObject.cantidadTotal = resultadosDelTest.totalResults;
+         returnObject.datos = resultadosDelTest.Search;
          }
 
     }catch(error){
@@ -77,12 +77,12 @@ const OMDBGetByImdbID = async (imdbID) => {
       };
           try{
          let  resultadosDelTest = await Test(`http://www.omdbapi.com/?i=`+imdbID+`&apikey=`+APIKEY);
-         console.log(resultadosDelTest);
+         console.log("________Resultados________"+resultadosDelTest);
 
          if(resultadosDelTest != undefined){
             returnObject.respuesta = resultadosDelTest.Response;
-            returnObject.datos = resultadosDelTest.Search;
-            returnObject.cantidadTotal = resultadosDelTest.data.totalResults;
+            returnObject.datos = resultadosDelTest;
+            returnObject.cantidadTotal = 1;
 
          }
 
