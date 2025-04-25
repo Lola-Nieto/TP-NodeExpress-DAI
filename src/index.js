@@ -83,11 +83,11 @@ app.get('/matematica/dividir', (req, res) => {
 
 //modulo OMDBWrapper
 
-app.get('/omdb/searchbypage', (req, res) => {
+app.get('/omdb/searchbypage', async(req, res) => {
     let texto =  req.query.search;
     let pagina =  req.query.p;
-    
-    res.status(200).json(OMDBSearchByPage(texto,pagina));
+    let respuesta = await OMDBSearchByPage(texto,pagina);
+    res.status(200).json(respuesta);
 })
 
 

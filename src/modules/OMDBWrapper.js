@@ -3,6 +3,8 @@ const APIKEY  = "b8b3928a";
 
 
 const OMDBSearchByPage = async (movieTitle, page = 1) => {
+  console.log('movieTitle', movieTitle)
+  console.log('page', page)
     let returnObject = {
 
         respuesta     : false,
@@ -16,7 +18,7 @@ const OMDBSearchByPage = async (movieTitle, page = 1) => {
 
     try{
         let resultadosDelTest = await Test(`http://www.omdbapi.com/?apikey=${APIKEY}&s=${movieTitle}&page=${page}`);
-
+console.log('resultadosDelTest', resultadosDelTest)
         if(resultadosDelTest != undefined){
             returnObject.datos = resultadosDelTest.Search; //Muestra los 1eros 10, como si no estuviera lo de page --> Pq????
             returnObject.respuesta = resultadosDelTest.Response;
