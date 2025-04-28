@@ -117,7 +117,7 @@ app.get('/alumnos', (req, res) => {
 
 app.get('/alumnos/:dni', (req, res) => {
 
-    const posDelAlumnoEnArray = alumnosArray.findIndex(Alumno.DNI(req.params.dni)); //Está bien hecha la referencia así
+    const posDelAlumnoEnArray = alumnosArray.findIndex((alumno) => alumno.DNI == (req.params.dni)); 
     if(posDelAlumnoEnArray != -1){
         res.status(200).json(alumnosArray[posDelAlumnoEnArray]);
     }else{
@@ -128,15 +128,21 @@ app.get('/alumnos/:dni', (req, res) => {
 
 app.post('/alumnos', (req, res) => {
     let alumnoRecibido = req.body;
-    alumnosArray.push(alumnoRecibido);
+    const cantElementosAntes = alumnosArray.length;
+    const cantElementosAhora = alumnosArray.push(alumnoRecibido);
+    if(cantElementosAntes++ == cantElementosAhora)
     res.sendStatus(201);
 
 })
 
-app.delete('/alumnos', (req, res) => {
-    let dni = req.body;
-    alumnosArray.indexOf(alumnoRecibido);
-    res.sendStatus(201);
+app.delete('/alumnos', async (req, res) => {
+    const posDelAlumnoEnArray = alumnosArray.findIndex((alumno) => alumno.DNI == (req.body)); 
+    if(posDelAlumnoEnArray != -1){
+        await alumnosArray.splice(posDelAlumnoEnArray, 1);
+        res.sendStatus(200);
+    }else{
+        res.sendStatus(404);
+    }
 
 })
 
