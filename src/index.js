@@ -90,7 +90,17 @@ app.get('/omdb/searchbypage', async(req, res) => {
     res.status(200).json(respuesta);
 })
 
+app.get('/omdb/searchcomplete', async(req, res) => {
+    let texto =  req.query.search;
+    let respuesta = await OMDBSearchComplete(texto);
+    res.status(200).json(respuesta);
+})
 
+app.get('/omdb/getbyombdid', async(req, res) => {
+    let imdb =  req.query.imdbID;
+    let respuesta = await OMDBGetByImdbID(imdb);
+    res.status(200).json(respuesta);
+})
 
 //clase Alumno
 
@@ -100,11 +110,19 @@ alumnosArray.push(new Alumno("28946255", "Matias Queroso",  51));
 alumnosArray.push(new Alumno("32623391", "Elba Calao" , 18));
 
 app.get('/alumnos', (req, res) => {
+    res.status(200).json(alumnosArray);
+
+})
+
+
+app.get('/alumnos', (req, res) => {
     res.send(alumnosArray);
     res.sendStatus(200);
 })
 
+
 // Inicio el Server y lo pongo a escuchar.
+//Tiene que estar abajo de todo para que todos los endpoints se puedan llamar!!!! 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
