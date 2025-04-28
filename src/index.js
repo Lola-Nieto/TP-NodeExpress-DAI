@@ -96,7 +96,7 @@ app.get('/omdb/searchcomplete', async(req, res) => {
     res.status(200).json(respuesta);
 })
 
-app.get('/omdb/getbyombdid', async(req, res) => {
+app.get('/omdb/getbyomdbid', async(req, res) => {
     let imdb =  req.query.imdbID;
     let respuesta = await OMDBGetByImdbID(imdb);
     res.status(200).json(respuesta);
@@ -115,11 +115,30 @@ app.get('/alumnos', (req, res) => {
 })
 
 
-app.get('/alumnos', (req, res) => {
-    res.send(alumnosArray);
-    res.sendStatus(200);
+app.get('/alumnos/:dni', (req, res) => {
+
+    const posDelAlumnoEnArray = alumnosArray.findIndex(Alumno.DNI(req.params.dni)); //Está bien hecha la referencia así
+    if(posDelAlumnoEnArray != -1){
+        res.status(200).json(alumnosArray[posDelAlumnoEnArray]);
+    }else{
+        res.sendStatus(404);
+    }
 })
 
+
+app.post('/alumnos', (req, res) => {
+    let alumnoRecibido = req.body;
+    alumnosArray.push(alumnoRecibido);
+    res.sendStatus(201);
+
+})
+
+app.delete('/alumnos', (req, res) => {
+    let dni = req.body;
+    alumnosArray.indexOf(alumnoRecibido);
+    res.sendStatus(201);
+
+})
 
 // Inicio el Server y lo pongo a escuchar.
 //Tiene que estar abajo de todo para que todos los endpoints se puedan llamar!!!! 
