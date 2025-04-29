@@ -128,17 +128,18 @@ app.get('/alumnos/:dni', (req, res) => {
 
 app.post('/alumnos', (req, res) => {
     let alumnoRecibido = req.body;
-    const cantElementosAntes = alumnosArray.length;
-    const cantElementosAhora = alumnosArray.push(alumnoRecibido);
-    if(cantElementosAntes++ == cantElementosAhora)
+    let cantElementosAntes = alumnosArray.length;
+    let cantElementosAhora = alumnosArray.push(alumnoRecibido);
+    if(cantElementosAntes += cantElementosAhora)
     res.sendStatus(201);
 
 })
 
 app.delete('/alumnos', async (req, res) => {
-    const posDelAlumnoEnArray = alumnosArray.findIndex((alumno) => alumno.DNI == (req.body)); 
+    const dni = req.body;
+    let posDelAlumnoEnArray = alumnosArray.findIndex((alumno) => alumno.DNI == dni); 
     if(posDelAlumnoEnArray != -1){
-        await alumnosArray.splice(posDelAlumnoEnArray, 1);
+        alumnosArray.splice(posDelAlumnoEnArray, 1);
         res.sendStatus(200);
     }else{
         res.sendStatus(404);
