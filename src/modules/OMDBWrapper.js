@@ -48,12 +48,23 @@ const OMDBSearchComplete = async (movieTitle) => {
 
     try{
          let resultadosDelTest = await Test('http://www.omdbapi.com/?apikey='+APIKEY+'&s='+movieTitle);
+         
+
          if(resultadosDelTest != undefined){
-            
-         returnObject.respuesta = resultadosDelTest.Response;
-         returnObject.cantidadTotal = resultadosDelTest.totalResults;
-         returnObject.datos = resultadosDelTest.Search;
-         }
+          let cantResultados = resultadosDelTest.totalResults;
+          let cantRepeticiones = Math.floor(cantResultados /10);
+          console.log('cantRepeticiones'+cantRepeticiones);
+          if(cantResultados%10 != 0){
+            cantRepeticiones++;
+          }
+          
+       returnObject.respuesta = resultadosDelTest.Response;
+       returnObject.cantidadTotal = cantResultados;
+       returnObject.datos = resultadosDelTest.Search; //Devuelve los datos de la 1era pág
+       for(let i = 2; i <= cantRepeticiones; i++){
+        returnObject.datos+= OMDBSearchByPage(movieTitle, i).datos;
+       }
+       }
 
     }catch(error){
     console.log(error);
